@@ -1,28 +1,52 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h4>Zadatak 1</h4>
+    <div v-for="(animal, i) in AnimalList" :key="i">{{ animal.type }} / {{ animal.name }} / {{animal.datumRodjenja }}</div>
+
+
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data(){
+    return {
+      AnimalList: [
+        {
+          type: 'Zirafa',
+          name: 'Jedinica',
+          datumRodjenja: new Date(),
+        },
+        {
+          type: 'Panter',
+          name: 'Dvojka',
+          datumRodjenja: new Date(),
+        },
+        {
+          type: 'Lav',
+          name: 'Trojka',
+          datumRodjenja: new Date(),
+        },
+        {
+          type: 'Slon',
+          name: 'Cetvorka',
+          datumRodjenja: new Date(),
+        },
+        {
+          type: 'Tigar',
+          name: 'Petica',
+          datumRodjenja: new Date(),
+        },
+      ],
+    }
   }
+  
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
