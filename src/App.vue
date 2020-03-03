@@ -1,13 +1,25 @@
 <template>
   <div id="app">
     <h4>Zadatak 1</h4>
-    <div v-for="(animal, i) in AnimalList" :key="i">{{ animal.type }} / {{ animal.name }} / {{animal.datumRodjenja }}</div>
+    <table class="table">
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>datumRodjenja</th>
+      <tr v-for="animal in AnimalList" :key="animal.name">
+        <td>{{ animal.type }}</td>
+        <td>{{ animal.name }}</td>
+        <td>{{animal.datumRodjenja ? animal.datumRodjenja : 'nepozntaoTernary'  }}</td>
+        <td><button class="btn btn-info" @click="removeAnimal(animal)">Remove</button></td>
+        <td><button class="btn btn-info">Move to top</button></td>
+      </tr>
+    </table>
 
-    <h4>Zadatak 2 ternary operator</h4>
-    <div v-for="(animal, i) in AnimalList" :key="i">{{ animal.type }} / {{ animal.name }} / {{animal.datumRodjenja ? animal.datumRodjenja : 'nepozntaoTernary' }}</div>
 
+    <!--
     <h4>Zadatak 2 sa metodama</h4>
     <div v-for="(animal, i) in AnimalList" :key="i">{{ animal.type }} / {{ animal.name }} / {{ renderBirthday(animal) }}</div>
+    -->
   </div>
 </template>
 
@@ -48,7 +60,12 @@ export default {
 
   methods: {
     renderBirthday(animal){
-      return animal.datumRodjenja || 'Nepoznato'
+      return animal.datumRodjenja || 'Nepoznato'//vrati datumRodjenja, a ako to nema, onda vrati 'Nepoznato'
+    },
+    removeAnimal(animal){
+      const index = this.AnimalList.indexOf(animal);
+      console.log(index);
+      this.AnimalList.splice(index, 1);
     }
   }
   
