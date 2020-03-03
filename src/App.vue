@@ -11,7 +11,7 @@
         <td>{{ animal.name }}</td>
         <td>{{animal.datumRodjenja ? animal.datumRodjenja : 'nepozntaoTernary'  }}</td>
         <td><button class="btn btn-info" @click="removeAnimal(animal)">Remove</button></td>
-        <td><button class="btn btn-info">Move to top</button></td>
+        <td><button class="btn btn-info" @click="moveToTop(animal)" >Move to top</button></td>
       </tr>
     </table>
 
@@ -64,8 +64,14 @@ export default {
     },
     removeAnimal(animal){
       const index = this.AnimalList.indexOf(animal);
-      console.log(index);
+      //console.log(index);
       this.AnimalList.splice(index, 1);
+    },
+    moveToTop(animal){
+      const index = this.AnimalList.indexOf(animal);
+      //console.log(index);
+      this.AnimalList.splice(index, 1);
+      this.AnimalList.unshift(animal);
     }
   }
   
