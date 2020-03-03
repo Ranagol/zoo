@@ -1,6 +1,15 @@
 <template>
-  <div id="app">
-    <h4>Zadatak 1</h4>
+  <div id="app" class="container">
+    <h2>Zoo</h2>
+
+    <form >
+      <input v-model="type" type="text" class="form-group"><br>
+      <input v-model="name" type="text" class="form-group"><br>
+      <input v-model="datumRodjenja" type="text" class="form-group"><br>
+      <button @click.prevent="addAnimal" class="btn btn-success form-group">Create animal</button>
+    </form>
+
+
     <table class="table">
       <tr>
         <th>Type</th>
@@ -11,7 +20,7 @@
         <td>{{ animal.name }}</td>
         <td>{{animal.datumRodjenja ? animal.datumRodjenja : 'nepozntaoTernary'  }}</td>
         <td><button class="btn btn-info" @click="removeAnimal(animal)">Remove</button></td>
-        <td><button class="btn btn-info" @click="moveToTop(animal)" >Move to top</button></td>
+        <td><button class="btn btn-info" @click="moveToTop(animal)" >To top</button></td>
       </tr>
     </table>
 
@@ -30,21 +39,24 @@ export default {
   name: 'App',
   data(){
     return {
+      type:'',
+      name:'',
+      datumRodjenja:'',
       AnimalList: [
         {
           type: 'Zirafa',
           name: 'Jedinica',
-          datumRodjenja: new Date(),
+          datumRodjenja: '22.12.2019',
         },
         {
           type: 'Panter',
           name: 'Dvojka',
-          datumRodjenja: new Date(),
+          datumRodjenja: '22.12.2018',
         },
         {
           type: 'Lav',
           name: 'Trojka',
-          datumRodjenja: new Date(),
+          datumRodjenja: '22.12.2017',
         },
         {
           type: 'Slon',
@@ -72,6 +84,12 @@ export default {
       //console.log(index);
       this.AnimalList.splice(index, 1);
       this.AnimalList.unshift(animal);
+    },
+    createAnimal(){
+      return { type: this.type, name: this.name, datumRodjenja: this.datumRodjenja }
+    },
+    addAnimal(){
+      this.AnimalList.push(this.createAnimal());
     }
   }
   
