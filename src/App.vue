@@ -2,10 +2,20 @@
   <div id="app" class="container">
     <h2>Zoo</h2>
 
-    <form >
-      <input v-model="type" type="text" class="form-group"><br>
-      <input v-model="name" type="text" class="form-group"><br>
-      <input v-model="datumRodjenja" type="text" class="form-group"><br>
+    <form>
+      <select class="form-group" v-model="type">
+        <option disabled value="">Please select one</option>
+        <option>Zmija</option>
+        <option>Ptica</option>
+        <option>Sisar</option>
+      </select>
+      <span>type: {{ selected }}</span>
+      <br>
+
+      <input v-model="name" type="text" class="form-group" placeholder="name"><br>
+
+      <input v-model="datumRodjenja" type="text" class="form-group" placeholder="datumRodjenja"><br>
+
       <button @click.prevent="addAnimal" class="btn btn-success form-group">Create animal</button>
     </form>
 
