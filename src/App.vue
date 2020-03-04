@@ -1,44 +1,53 @@
 <template>
   <div id="app" class="container">
-    <h2>Zoo</h2>
-
+    <h1>Zoo</h1>
+    <hr>
+    <h3>Create new animal</h3>
     <form>
-      <select class="form-group" v-model="type">
-        <option disabled value="">Please select one</option>
-        <option>Zmija</option>
-        <option>Ptica</option>
-        <option>Sisar</option>
-      </select>
-      <span>type: {{ selected }}</span>
-      <br>
-
+      <input v-model="type" type="text" class="form-group" placeholder="type"><br>
       <input v-model="name" type="text" class="form-group" placeholder="name"><br>
 
+      <select v-model="sektor" class="form-group">
+        <option v-for="(option2, i) in options2" :key="i" v-bind:value="option2.value">
+          {{ option2.text }}
+        </option>
+      </select>
+      <br>
+      
       <input v-model="datumRodjenja" type="text" class="form-group" placeholder="datumRodjenja"><br>
-
       <button @click.prevent="addAnimal" class="btn btn-success form-group">Create animal</button>
     </form>
+    <hr>
 
-
+    <h3>AnimalList</h3>
     <table class="table">
       <tr>
         <th>Type</th>
         <th>Name</th>
+        <th>Sektor</th>
         <th>datumRodjenja</th>
       <tr v-for="animal in AnimalList" :key="animal.name">
         <td>{{ animal.type }}</td>
         <td>{{ animal.name }}</td>
+        <td>{{ animal.sektor }}</td>
         <td>{{animal.datumRodjenja ? animal.datumRodjenja : 'nepozntaoTernary'  }}</td>
-        <td><button class="btn btn-info" @click="removeAnimal(animal)">Remove</button></td>
+        <td><button class="btn btn-danger" @click="removeAnimal(animal)">Remove</button></td>
         <td><button class="btn btn-info" @click="moveToTop(animal)" >To top</button></td>
       </tr>
     </table>
+    <hr>
 
-
-    <!--
-    <h4>Zadatak 2 sa metodama</h4>
-    <div v-for="(animal, i) in AnimalList" :key="i">{{ animal.type }} / {{ animal.name }} / {{ renderBirthday(animal) }}</div>
-    -->
+    <h3>Tabela sektora</h3>
+    <table class="table">
+      <tr>
+        <th>Sektor</th>
+        <th>Prikazi</th>
+      </tr>
+      <tr v-for="(option2, i) in options2" :key="i">
+        <td>{{ option2.text }}</td>
+        <td><button @click="prikazi(option2.text)" class="btn btn-warning">Prikazi</button></td>
+      </tr>
+    </table>
   </div>
 </template>
 
@@ -49,33 +58,22 @@ export default {
   name: 'App',
   data(){
     return {
+      sektor: 'Europe',
+      options2: [
+        { text: 'Europe', value: 'Europe' },
+        { text: 'Asia', value: 'Asia' },
+        { text: 'Africa', value: 'Africa' }
+       ],
+
       type:'',
       name:'',
       datumRodjenja:'',
       AnimalList: [
-        {
-          type: 'Zirafa',
-          name: 'Jedinica',
-          datumRodjenja: '22.12.2019',
-        },
-        {
-          type: 'Panter',
-          name: 'Dvojka',
-          datumRodjenja: '22.12.2018',
-        },
-        {
-          type: 'Lav',
-          name: 'Trojka',
-          datumRodjenja: '22.12.2017',
-        },
-        {
-          type: 'Slon',
-          name: 'Cetvorka',
-        },
-        {
-          type: 'Tigar',
-          name: 'Petica',
-        },
+        {type: 'Zirafa', name: 'Jedinica', sektor: 'Europe', datumRodjenja: '22.12.2019',},
+        {type: 'Panter', name: 'Dvojka', sektor: 'Asia', datumRodjenja: '22.12.2018',},
+        {type: 'Lav', name: 'Trojka', sektor: 'Africa', datumRodjenja: '22.12.2017',},
+        {type: 'Slon', name: 'Cetvorka', sektor: 'Africa',},
+        {type: 'Tigar', name: 'Petica', sektor: 'Asia',},
       ],
     }
   },
@@ -96,11 +94,20 @@ export default {
       this.AnimalList.unshift(animal);
     },
     createAnimal(){
-      return { type: this.type, name: this.name, datumRodjenja: this.datumRodjenja }
+      return { type: this.type, name: this.name, sektor: this.sektor, datumRodjenja: this.datumRodjenja }
     },
     addAnimal(){
       this.AnimalList.push(this.createAnimal());
+    },
+    prikazi(text){
+      let newArray = this.AnimalList.filter(function(animal){
+        return animal.sektor == text;
+      })
+      alert(JSON.stringify(newArray));
     }
+
+    
+    
   }
   
 }
